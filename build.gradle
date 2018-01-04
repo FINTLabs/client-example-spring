@@ -1,0 +1,33 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+group 'no.fint.labs'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url "https://dl.bintray.com/fint/maven" }
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter")
+    compile("org.springframework.security.oauth:spring-security-oauth2")
+    compile("com.fasterxml.jackson.core:jackson-databind")
+    compile('org.springframework.hateoas:spring-hateoas:0.23.0.RELEASE')
+    compile("org.springframework.plugin:spring-plugin-core")
+
+    compile('no.fint:fint-felles-model-java:2.2.20')
+}
