@@ -13,7 +13,6 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
 group 'no.fint.labs'
-version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
