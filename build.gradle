@@ -25,7 +25,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter")
     compile("org.springframework.security.oauth:spring-security-oauth2")
     compile("com.fasterxml.jackson.core:jackson-databind")
-    compile('org.springframework.hateoas:spring-hateoas:0.23.0.RELEASE')
+    compile('org.springframework.hateoas:spring-hateoas')
     compile("org.springframework.plugin:spring-plugin-core")
 
     compile('no.fint:fint-felles-model-java:2.2.20')

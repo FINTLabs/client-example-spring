@@ -13,8 +13,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
-
 import static org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType.HAL;
 
 @EnableHypermediaSupport(type=HAL)
@@ -33,6 +31,7 @@ public class Application {
             ResponseEntity<Resources<Resource<Person>>> result = restTemplate.exchange("https://beta.felleskomponent.no/administrasjon/personal/person", HttpMethod.GET, null, new ParameterizedTypeReference<Resources<Resource<Person>>>(){});
             System.out.println("result.getStatusCode() = " + result.getStatusCode());
             System.out.println("result.getBody() = " + result.getBody());
+
         };
     }
 }
