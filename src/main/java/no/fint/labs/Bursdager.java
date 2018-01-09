@@ -30,7 +30,7 @@ public class Bursdager {
     @GetMapping("/bursdager")
     public ResponseEntity bursdager() {
         ResponseEntity<Resources<Person>> result = restTemplate.exchange("https://beta.felleskomponent.no/administrasjon/personal/person", HttpMethod.GET, null, new ParameterizedTypeReference<Resources<Person>>(){});
-        List<ObjectNode> bursdager = result.getBody().getContent().stream().filter(p -> getYears(p) % 10 == 9).map(this::jubilant).collect(Collectors.toList());
+        List<ObjectNode> bursdager = result.getBody().getContent().stream().filter(p -> (getYears(p)+1) % 10 == 0).map(this::jubilant).collect(Collectors.toList());
         return ResponseEntity.ok(bursdager);
     }
 
