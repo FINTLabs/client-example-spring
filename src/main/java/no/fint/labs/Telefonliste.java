@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,9 +25,12 @@ public class Telefonliste {
     @Autowired
     ObjectMapper objectMapper;
 
+    @Autowired
+    private URI endpoint;
+
     @GetMapping("/telefonliste")
     public ResponseEntity getTelefonliste() {
-        ResponseEntity<Resources<Person>> result = restTemplate.exchange("https://beta.felleskomponent.no/administrasjon/personal/person", HttpMethod.GET, null, new ParameterizedTypeReference<Resources<Person>>(){});
+        ResponseEntity<Resources<Person>> result = restTemplate.exchange(Config.ENDPOINT_ADMINISTRASJON_PERSONAL_PERSON, HttpMethod.GET, null, new ParameterizedTypeReference<Resources<Person>>(){}, endpoint);
         List<ObjectNode> phones = result.getBody().getContent().stream().map(this::kontakt).collect(Collectors.toList());
         return ResponseEntity.ok(phones);
     }

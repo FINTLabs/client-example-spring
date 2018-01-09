@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.ZoneId;
@@ -27,9 +28,12 @@ public class Bursdager {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private URI endpoint;
+
     @GetMapping("/bursdager")
     public ResponseEntity bursdager() {
-        ResponseEntity<Resources<Person>> result = restTemplate.exchange("https://beta.felleskomponent.no/administrasjon/personal/person", HttpMethod.GET, null, new ParameterizedTypeReference<Resources<Person>>(){});
+        ResponseEntity<Resources<Person>> result = restTemplate.exchange(Config.ENDPOINT_ADMINISTRASJON_PERSONAL_PERSON, HttpMethod.GET, null, new ParameterizedTypeReference<Resources<Person>>(){}, endpoint);
         List<ObjectNode> bursdager = result.getBody().getContent().stream().filter(p -> (getYears(p)+1) % 10 == 0).map(this::jubilant).collect(Collectors.toList());
         return ResponseEntity.ok(bursdager);
     }

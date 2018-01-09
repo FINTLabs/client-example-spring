@@ -1,7 +1,6 @@
 logging:
   level:
-    org:
-      springframework: INFO
+    org.springframework: INFO
 
 security:
   basic:
@@ -15,3 +14,7 @@ security:
       password: pwfatut
       scope: fint-client
       accessTokenUri: https://namidp01.rogfk.no/nidp/oauth/nam/token
+
+fint:
+  felleskomponent:
+    uri: https://beta.felleskomponent.no
