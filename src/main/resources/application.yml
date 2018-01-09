@@ -1,4 +1,12 @@
+logging:
+  level:
+    org:
+      springframework: INFO
+
 security:
+  basic:
+    enabled: false
+
   oauth2:
     client:
       clientId: 6e1cf7b4-b107-42b3-9435-8fda70726c6a
@@ -7,8 +15,3 @@ security:
       password: pwfatut
       scope: fint-client
       accessTokenUri: https://namidp01.rogfk.no/nidp/oauth/nam/token
-
-logging:
-  level:
-    org:
-      springframework: WARN
