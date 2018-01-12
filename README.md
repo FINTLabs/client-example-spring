@@ -1,7 +1,11 @@
 # client-example-spring
 FINT Example Client using Spring
 
-Example client for accessing FINT APIs, using Spring Framework for OAuth, HTTP, and JSON HAL HATEOAS parsing.
+Example web application for creating cascading web APIs using FINT APIs.
+It uses Spring Framework for OAuth, HTTP, JSON HAL HATEOAS parsing, and web container.
+
+The purpose of this application is to demonstrate how to interact with FINT APIs,
+and provide some basic ideas of services that can be built.
 
 ## OAuth Configuration
 
@@ -17,3 +21,11 @@ annotation in `Application`.  It also uses the FINT generated model classes from
 To get HATEOAS resources with links, the model class is wrapped in `Resources<Resource<?>>`.
 This is all wrapped in `ParameterizedTypeResource<?>` to instruct the Spring RestTemplate and Jackson to
 deserialize into the correct object.
+
+## Web Container
+
+The Web container has two REST controllers configured, `Bursdager` and `Telefonliste`. They serve the following REST endpoints:
+
+- `/bursdager` - Provides a list of people with birthday today
+- `/jubilanter` - Provides a list of people with an anniversary birthday in the near future
+- `/telefonliste` - Provides a list of people's mobile phone numbers.

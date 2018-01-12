@@ -16,6 +16,7 @@ import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,11 +32,11 @@ public class Bursdager {
     @Autowired
     private URI endpoint;
 
-    @GetMapping("/bursdager")
-    public ResponseEntity bursdager() {
+    @GetMapping("/jubilanter")
+    public ResponseEntity jubilanter() {
         ResponseEntity<Resources<Person>> result = restTemplate.exchange(Config.ENDPOINT_ADMINISTRASJON_PERSONAL_PERSON, HttpMethod.GET, null, new ParameterizedTypeReference<Resources<Person>>(){}, endpoint);
-        List<ObjectNode> bursdager = result.getBody().getContent().stream().filter(p -> (getYears(p)+1) % 10 == 0).map(this::jubilant).collect(Collectors.toList());
-        return ResponseEntity.ok(bursdager);
+        List<ObjectNode> jubilanter = result.getBody().getContent().stream().filter(p -> (getYears(p)+1) % 10 == 0).map(this::jubilant).collect(Collectors.toList());
+        return ResponseEntity.ok(jubilanter);
     }
 
     private int getYears(Person p) {
@@ -48,6 +49,14 @@ public class Bursdager {
         result.put("alder", getYears(p)+1);
         result.put("dato", String.format("%Td %<Tb", p.getFodselsdato()));
         return result;
+    }
+
+    @GetMapping("/bursdager")
+    public ResponseEntity bursdager() {
+        ResponseEntity<Resources<Person>> result = restTemplate.exchange(Config.ENDPOINT_ADMINISTRASJON_PERSONAL_PERSON, HttpMethod.GET, null, new ParameterizedTypeReference<Resources<Person>>(){}, endpoint);
+        final Date today = new Date();
+        List<ObjectNode> bursdager = result.getBody().getContent().stream().filter(p -> p.getFodselsdato().getDate() == today.getDate() && p.getFodselsdato().getMonth() == today.getMonth()).map(this::jubilant).collect(Collectors.toList());
+        return ResponseEntity.ok(bursdager);
     }
 
 }
