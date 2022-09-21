@@ -25,7 +25,7 @@ public class Config {
     @Bean("endpoint")
     @Value("${fint.felleskomponent.uri}")
     public URI endpoint(String uri) {
-        return URI.create(uri);
+        return URI.create(ENDPOINT_ADMINISTRASJON_PERSONAL_PERSON.replace("{endpoint}", uri));
     };
 
     @Bean
